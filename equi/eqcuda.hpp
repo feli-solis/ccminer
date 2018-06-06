@@ -22,7 +22,7 @@
 #define nullptr NULL
 #endif
 
-#ifdef WIN32
+/* #ifdef WIN32
 #define rt_error std::runtime_error
 #else
 class rt_error : public std::runtime_error
@@ -30,7 +30,7 @@ class rt_error : public std::runtime_error
 public:
 	explicit rt_error(const std::string& str) : std::runtime_error(str) {}
 };
-#endif
+#endif */
 
 #define checkCudaErrors(call)								\
 do {														\
@@ -40,7 +40,7 @@ do {														\
 		_SNPRINTF(errorBuff, sizeof(errorBuff) - 1,			\
 			"CUDA error '%s' in func '%s' line %d",			\
 			cudaGetErrorString(err), __FUNCTION__, __LINE__); \
-		throw rt_error(errorBuff);				\
+		throw std::runtime_error(errorBuff);				\
 		}													\
 } while (0)
 
@@ -52,7 +52,7 @@ do {														\
 		_SNPRINTF(errorBuff, sizeof(errorBuff) - 1,			\
 			"CUDA error DRIVER: '%d' in func '%s' line %d", \
 			err, __FUNCTION__, __LINE__);	\
-		throw rt_error(errorBuff);				\
+		throw std::runtime_error(errorBuff);				\
 				}											\
 } while (0)
 

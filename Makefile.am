@@ -105,9 +105,15 @@ ccminer_LDADD    = @LIBCURL@ @JANSSON_LIBS@ @PTHREAD_LIBS@ @WS2_LIBS@ @CUDA_LIBS
 ccminer_CPPFLAGS = @LIBCURL_CPPFLAGS@ @OPENMP_CFLAGS@ $(CPPFLAGS) $(PTHREAD_FLAGS) -fno-strict-aliasing $(JANSSON_INCLUDES) $(DEF_INCLUDES) $(nvml_defs)
 
 if HAVE_OSX
-ccminer_CPPFLAGS += -I/usr/local/llvm/lib/clang/4.0.0/include
-ccminer_LDFLAGS += -L/usr/local/llvm/lib
+ccminer_CPPFLAGS += -I/usr/local/opt/llvm/include
+ccminer_CPPFLAGS += -I/usr/local/opt/openssl/include
+ccminer_CPPFLAGS += -fopenmp
+ccminer_CPPFLAGS += -lc++
+ccminer_LDFLAGS += -L/usr/local/opt/llvm/lib
+ccminer_LDFLAGS += -L/usr/local/opt/openssl/lib
 ccminer_LDADD += -lomp
+ccminer_LDFLAGS += -L/usr/local/opt/curl/lib
+ccminer_CPPFLAGS += -I/usr/local/opt/curl/include
 endif
 
 #ccminer_CPPFLAGS += -DUSE_LIBSODIUM
